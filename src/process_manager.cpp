@@ -1,4 +1,5 @@
 #include "process_manager.h"
+#include <algorithm>
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
@@ -8,6 +9,15 @@
 #include <iostream>
 #include <sys/types.h>
 #include <unistd.h>
+#include <vector>
+
+struct procStruct {
+  std::string PID;
+  std::string procName;
+  double vmRss;
+};
+
+std::vector<procStruct> Process;
 
 void procList() {
   DIR *dir = opendir("/proc");
@@ -69,28 +79,43 @@ void procList() {
         kiloByte = 0;
       }
 
-      std::cout << std::left << "PID: " << std::setw(10) << pid
-                << " Name: " << std::setw(35) << procName << " RAM: ";
+      procStruct p;
+      p.PID = pid;
+      p.procName = procName;
+      p.vmRss = kiloByte;
 
-      if (kiloByte >= 1099511627776.0) {
-        double petaByte = kiloByte / 1099511627776.0;
-        std::cout << petaByte << " PB\n";
-      } else if (kiloByte >= 1073741824.0) {
-        double teraByte = kiloByte / 1073741824.0;
-        std::cout << teraByte << " TB\n";
-      } else if (kiloByte >= 1048576.0) {
-        double gigaByte = kiloByte / 1048576.0;
-        std::cout << gigaByte << " GB\n";
-      } else if (kiloByte >= 1024.0) {
-        double megaByte = kiloByte / 1024.0;
-        std::cout << megaByte << " MB\n";
-      } else if (kiloByte >= 1.0) {
-        std::cout << kiloByte << " kB\n";
-      } else {
-        double bytes = kiloByte * 1024.0;
-        std::cout << bytes << " Byte\n";
-      }
+      Process.push_back(p);
     }
   }
+
+  sort(Process.begin(), Process.end(),
+       [](const procStruct &a, const procStruct &b) { return a.vmRss > b.vmRss; });
+
+  for (const auto &p : Process) {
+
+    std::cout << std::left << "PID: " << std::setw(10) << p.PID
+              << " Name: " << std::setw(35) << p.procName << " RAM: ";
+
+    if (p.vmRss >= 1099511627776.0) {
+      double petaByte = p.vmRss / 1099511627776.0;
+      std::cout << petaByte << " PB\n";
+    } else if (p.vmRss >= 1073741824.0) {
+      double teraByte = p.vmRss / 1073741824.0;
+      std::cout << teraByte << " TB\n";
+    } else if (p.vmRss >= 1048576.0) {
+      double gigaByte = p.vmRss / 1048576.0;
+      std::cout << gigaByte << " GB\n";
+    } else if (p.vmRss >= 1024.0) {
+      double megaByte = p.vmRss / 1024.0;
+      std::cout << megaByte << " MB\n";
+    } else if (p.vmRss >= 1.0) {
+      std::cout << p.vmRss << " kB\n";
+    } else {
+      double bytes = p.vmRss * 1024.0;
+      std::cout << bytes << " Byte\n";
+    }
+  }
+
+  Process.clear();
   closedir(dir);
 }
