@@ -14,7 +14,7 @@ A lightweight, interactive, high-performance Linux Command-Line Task Manager wri
 * **PID Mapping**: Identifies active processes.
 * **Interactive CLI Interface**: Real-time process monitoring with custom action loops (Refresh/Exit).
 * **Process Management**: Send kernel signals (`SIGKILL`) to terminate any task instantly via PID.
-* **Smart Memory Auto-Scaling**: Displays memory consumption dynamically in Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, or Petabytes based on real usage.
+* **Smart Memory Auto-Scaling**: Displays memory consumption dynamically in Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, or Petabytes based on real usage & auto sorting.
 * **Crash Resilience**: Built-in exception handling to survive dynamic kernel thread shifts.
 
 ---
@@ -22,6 +22,7 @@ A lightweight, interactive, high-performance Linux Command-Line Task Manager wri
 1. **Discovery**: Scans the `/proc` directory for PID-named folders using `dirent.h`.
 2. **Filtering**: Uses `isdigit()` to isolate system processes.
 3. **Extraction**: Parses `/proc/[PID]/status` to retrieve the process name and RAM usage (`VmRSS`).
+4. **Sorting**: Sort lines by RAM usage (`VmRSS`) using (`Vector`).
 4. **Interactivity**: Captures user input to safely dispatch POSIX signals or trigger dynamic terminal redraws using `system("clear")`.
 
 ---
@@ -32,7 +33,7 @@ When you run the application, you will interact with a clean terminal:
 
 ---
 # 🐧 System Requirements
-* **OS**: Linux-based operating systems (Tested on Arch Linux).
+* **OS**: Linux-based operating systems (Tested on Arch Linux & Linux Mint).
 * **Compiler**: Clang or GCC/G++ with C++17 support or higher.
 
 ---
@@ -42,7 +43,7 @@ When you run the application, you will interact with a clean terminal:
 git clone https://github.com/sudoRebel/linux-task-manager && cd linux-task-manager
 
 # 2. Compile using Clang++ with C++17
-clang++ -std=c++17 -I include src/*.cpp -o linux-task-manager
+clang++ -std=c++17 -I include src/*.cpp -o TaskManager
 
 # 3. Run the application with root privileges
-sudo ./linux-task-manager
+sudo ./TaskManager
