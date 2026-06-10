@@ -1,49 +1,45 @@
-# 🖥️ LTM - Linux Task Manager (CLI)
+# 🖥️ Chansaw (CLI)
 
-A lightweight, interactive, high-performance Linux Command-Line Task Manager written in standard C++. It interacts directly with the Linux Kernel via the `/proc` pseudo-filesystem to monitor active processes and manage them using POSIX system signals.
-
----
-# 🚀 Recent Updates & Performance Optimizations
-* **Engine Refactoring (From Tokenization to Stream Parsing)**: Upgraded the `/proc/[PID]/status` parser by replacing the old word-by-word stream extraction (`statusFile >> word`) with an advanced **`std::getline()`** and **`std::string::find()`** implementation.
-  * **Why this matters**: The old method was prone to tokenization misalignment and high CPU overhead. The new `getline` stream-based approach scans memory structures line-by-line via the kernel buffer, dramatically increasing extraction speed and mitigating parsing dead-ends.
+Chansaw is a lightweight, interactive, high-performance Linux Command-Line Task Manager written in standard C++.
 
 ---
+
 # ✨ Features
+
 * **Zero-Dependency**: Standard C++ library only.
 * **Kernel Direct-Access**: Reads directly from the `/proc` filesystem.
 * **PID Mapping**: Identifies active processes.
-* **Interactive CLI Interface**: Real-time process monitoring with custom action loops (Refresh/Exit).
+* **Interactive CLI Interface**: Real-time process monitoring with custom action loops (Refresh/Kill Porcess/Exit).
 * **Process Management**: Send kernel signals (`SIGKILL`) to terminate any task instantly via PID.
-* **Smart Memory Auto-Scaling**: Displays memory consumption dynamically in Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, or Petabytes based on real usage & auto sorting.
-* **Crash Resilience**: Built-in exception handling to survive dynamic kernel thread shifts.
+* **Smart Memory Auto-Scaling**: Displays memory consumption dynamically in Kilobytes, Megabytes, Gigabytes, Terabytes, or Petabytes based on real usage & auto sorting.
 
 ---
+
 # 💡 How it works
+
 1. **Discovery**: Scans the `/proc` directory for PID-named folders using `dirent.h`.
 2. **Filtering**: Uses `isdigit()` to isolate system processes.
 3. **Extraction**: Parses `/proc/[PID]/status` to retrieve the process name and RAM usage (`VmRSS`).
-4. **Sorting**: Sort lines by RAM usage (`VmRSS`) using (`Vector`).
-4. **Interactivity**: Captures user input to safely dispatch POSIX signals or trigger dynamic terminal redraws using `system("clear")`.
+4. **Sorting**: Sort lines by RAM usage (`VmRSS`) using `sort()` function.
+5. **Interactivity**: Captures user input to safely dispatch POSIX signals.
 
 ---
-# 🖥️ UI Preview
-When you run the application, you will interact with a clean terminal:
 
-<img width="424" height="307" alt="Screenshot" src="https://github.com/user-attachments/assets/956c886e-a750-4484-b35a-65066953ffea" />
-
----
 # 🐧 System Requirements
-* **OS**: Linux-based operating systems (Tested on Arch Linux & Linux Mint).
+
+* **OS**: Linux-based operating systems.
 * **Compiler**: Clang or GCC/G++ with C++17 support or higher.
 
 ---
+
 # 🛠️ Installation & Run Guide
+
 ```bash
 # 1. Clone the repository
-git clone https://github.com/sudoRebel/linux-task-manager && cd linux-task-manager
+git clone https://github.com/sudoRebel/Chansaw && cd Chansaw
 
 # 2. Compile using Clang++ with C++17
-clang++ -std=c++17 -I include src/*.cpp -o TaskManager
+clang++ -std=c++17 -I include/ src/*.cpp -o chansaw
 
 # 3. Run the application with root privileges
-sudo ./TaskManager
+sudo ./chansaw
