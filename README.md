@@ -1,5 +1,6 @@
 # 🖥️ Chansaw (CLI)
 
+Chansaw — A sharp Linux tool to terminate intractable processes.
 Chansaw is a lightweight, interactive, high-performance Linux Command-Line Task Manager written in standard C++.
 
 ---
