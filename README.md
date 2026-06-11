@@ -28,10 +28,10 @@ Chansaw is a lightweight, interactive, high-performance Linux Command-Line Task 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/sudoRebel/chansaw.git && cd chansaw
+git clone https://github.com/sudoRebel/Chansaw.git && cd chansaw
 
 # 2. Compile using Clang++ with C++17
-clang++ -std=c++17 -I include/ src/*.cpp -o chansaw
+clang++ -std=c++17 -I include/ src/*.cpp -o Chansaw
 
 # 3. Run the application with root privileges
-sudo ./chansaw
+sudo ./Chansaw
