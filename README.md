@@ -1,9 +1,6 @@
 # 🖥️ Chansaw (CLI)
 
-Chansaw — A sharp Linux tool to terminate intractable processes.
 Chansaw is a lightweight, interactive, high-performance Linux Command-Line Task Manager written in standard C++.
-
----
 
 # ✨ Features
 
@@ -14,8 +11,6 @@ Chansaw is a lightweight, interactive, high-performance Linux Command-Line Task 
 * **Process Management**: Send kernel signals (`SIGKILL`) to terminate any task instantly via PID.
 * **Smart Memory Auto-Scaling**: Displays memory consumption dynamically in Kilobytes, Megabytes, Gigabytes, Terabytes, or Petabytes based on real usage & auto sorting.
 
----
-
 # 💡 How it works
 
 1. **Discovery**: Scans the `/proc` directory for PID-named folders using `dirent.h`.
@@ -24,23 +19,19 @@ Chansaw is a lightweight, interactive, high-performance Linux Command-Line Task 
 4. **Sorting**: Sort lines by RAM usage (`VmRSS`) using `sort()` function.
 5. **Interactivity**: Captures user input to safely dispatch POSIX signals.
 
----
-
 # 🐧 System Requirements
 
 * **OS**: Linux-based operating systems.
 * **Compiler**: Clang or GCC/G++ with C++17 support or higher.
 
----
-
 # 🛠️ Installation & Run Guide
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/sudoRebel/chansaw.git && cd chansaw
+git clone https://github.com/sudoRebel/Chansaw.git && cd chansaw
 
 # 2. Compile using Clang++ with C++17
-clang++ -std=c++17 -I include/ src/*.cpp -o chansaw
+clang++ -std=c++17 -I include/ src/*.cpp -o Chansaw
 
 # 3. Run the application with root privileges
-sudo ./chansaw
+sudo ./Chansaw
